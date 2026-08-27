@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>تطبيقات Zoho One</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --line:#e3e6eb;
+    --text:#1f2733;
+    --muted:#69707d;
+    --accent:#2f6fed;
+    --shadow:0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.05);
+    --radius:12px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14171c; --card:#1c2028; --line:#2b3039; --text:#e8eaee;
+      --muted:#9aa2b1; --accent:#6f9bff;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI",Tahoma,"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:20px 18px 48px}
+
+  header.top{
+    display:flex;align-items:center;gap:12px;
+    padding:6px 2px 18px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:20px;
+  }
+  header.top h1{font-size:20px;margin:0;font-weight:700}
+  header.top p{margin:0;color:var(--muted);font-size:13px}
+
+  .nav{
+    display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;
+  }
+  .nav a{
+    text-decoration:none;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;
+    padding:5px 13px;font-size:13px;background:var(--card);
+    transition:.15s;
+  }
+  .nav a:hover{color:var(--accent);border-color:var(--accent)}
+
+  section{margin:0 0 34px}
+  h2{
+    font-size:17px;margin:0 0 4px;font-weight:700;
+    display:flex;align-items:center;gap:10px;
+  }
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+  section > .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:12px;
+  }
+  .app{
+    display:flex;flex-direction:column;gap:10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px;
+    text-decoration:none;color:inherit;
+    box-shadow:var(--shadow);
+    transition:.15s;
+    min-height:112px;
+  }
+  .app:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .logo{height:26px;display:flex;align-items:center}
+  .logo img{height:26px;width:auto;max-width:170px;object-fit:contain;display:block}
+  .fallback{
+    display:none;align-items:center;gap:8px;font-weight:700;font-size:15px;
+  }
+  .fallback .dot{
+    width:24px;height:24px;border-radius:6px;background:var(--accent);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;
+  }
+  .app.noimg .logo img{display:none}
+  .app.noimg .fallback{display:flex}
+  .desc{color:var(--muted);font-size:12.5px;line-height:1.55;margin:0}
+
+  footer{color:var(--muted);font-size:12px;text-align:center;padding-top:10px;border-top:1px solid var(--line)}
+
+  @media (max-width:520px){
+    .grid{grid-template-columns:1fr}
+    .wrap{padding:14px 12px 32px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>تطبيقات Zoho One</h1>
+      <p>كل التطبيقات مرتّبة حسب الفئة — اضغط على أي تطبيق لفتحه</p>
+    </div>
+  </header>
+
+  <nav class="nav" id="nav"></nav>
+
+  <main id="main"></main>
+
+  <footer>الشركة الوطنية للتوثيق للتدريب</footer>
+</div>
+
+<script>
+const DATA = [
+  { cat:"المبيعات", sub:"ساعِد فريق المبيعات على زيادة إنتاجيته", apps:[
+    ["CRM","crm","https://crm.zoho.com","نهج متعدد القنوات لعمليات البيع الحديثة"],
+    ["Bigin","bigin","https://bigin.zoho.com","حلّ لإدارة المسارات مصمم للفِرق الصغيرة"],
+    ["Bookings","bookings","https://bookings.zoho.com","أتمتة جدولة المواعيد مع العملاء"],
+    ["SalesIQ","salesiq","https://salesiq.zoho.com","اجذب زوار الموقع وحوّلهم إلى عملاء"],
+    ["RouteIQ","routeiq","https://routeiq.zoho.com","تخطيط مسارات الزيارات الميدانية"],
+    ["Thrive","thrive","https://thrive.zoho.com","منصة ولاء العملاء والإحالات"]
+  ]},
+  { cat:"التسويق", sub:"اجذب العملاء وأشركهم عبر كل القنوات", apps:[
+    ["Marketing Automation","marketingautomation","https://marketinghub.zoho.com","أتمتة تسويق متكاملة لنمو الأعمال"],
+    ["Campaigns","campaigns","https://campaigns.zoho.com","إنشاء حملات فعالة عبر البريد الإلكتروني"],
+    ["Social","social","https://social.zoho.com","انشر المحتويات وتفاعل مع المتابعين"],
+    ["Survey","survey","https://survey.zoho.com","اتخذ قرارات مدروسة بالاستناد إلى تقييمات العملاء"],
+    ["Forms","forms","https://forms.zoho.com","أنشئ استمارات لجذب العملاء المحتملين"],
+    ["Sites","sites","https://sites.zoho.com","أنشئ مواقع إلكترونية احترافية"],
+    ["PageSense","pagesense","https://pagesense.zoho.com","حسّن صفحات موقعك لرفع التفاعل"],
+    ["Backstage","backstage","https://backstage.zoho.com","قم بإدارة أحداث ناجحة"],
+    ["Commerce","commerce","https://commerce.zoho.com","منصة تجارة إلكترونية شاملة"]
+  ]},
+  { cat:"الدعم", sub:"أدوات دعم العملاء والمساعدة عن بُعد", apps:[
+    ["Desk","desk","https://desk.zoho.com","ادعم العملاء عبر مختلف القنوات"],
+    ["Assist","assist","https://assist.zoho.com","استكشف مشاكل العملاء وأصلحها عن بُعد"],
+    ["Lens","lens","https://lens.zoho.com","ألق نظرة على المشاكل في المعدات"]
+  ]},
+  { cat:"التواصل", sub:"البريد والمراسلة الفورية", apps:[
+    ["Mail","mail","https://mail.zoho.com","استضف بريداً إلكترونياً آمناً"],
+    ["Cliq","cliq","https://cliq.zoho.com","تواصل بشكل فوري بين أعضاء الفريق"]
+  ]},
+  { cat:"التعاون", sub:"العمل المشترك بين الفرق", apps:[
+    ["Projects","projects","https://projects.zoho.com","خطط للمشاريع وتتبّعها وتعاون"],
+    ["Sprints","sprints","https://sprints.zoho.com","قم بإدارة وحدات sprint للفرق"],
+    ["Connect","connect","https://connect.zoho.com","شبكة اجتماعية خاصة للمناقشات"],
+    ["Learn","learn","https://learn.zoho.com","منصة تعليمية وتدريبية مرئية"],
+    ["TeamInbox","teaminbox","https://teaminbox.zoho.com","صناديق بريد مشتركة للتحديثات"],
+    ["Meeting","meeting","https://meeting.zoho.com","مؤتمرات وندوات عبر الويب"],
+    ["WorkDrive","workdrive","https://workdrive.zoho.com","خزّن وأدر ملفات فريقك بأمان"]
+  ]},
+  { cat:"الإنتاجية", sub:"المستندات والإنتاجية اليومية", apps:[
+    ["Writer","writer","https://writer.zoho.com","اكتب وتعاون عبر واجهة واضحة"],
+    ["Sheet","sheet","https://sheet.zoho.com","أنشئ جداول بيانات تعاونية"],
+    ["Show","show","https://show.zoho.com","تعاون على إنشاء مجموعات شرائح"],
+    ["Sign","sign","https://sign.zoho.com","قم بالتوقيع على المستندات رقمياً"],
+    ["Notebook","notebook","https://notebook.zoho.com","دوِّن كل ما يهمك"],
+    ["Vault","vault","https://vault.zoho.com","خزّن وأدر كلمات المرور بأمان"]
+  ]},
+  { cat:"الشؤون المالية", sub:"المحاسبة والفوترة والمدفوعات", apps:[
+    ["Books","books","https://books.zoho.com","عالج كل جوانب المحاسبة"],
+    ["Invoice","invoice","https://invoice.zoho.com","احصل على أموالك بشكل أسرع"],
+    ["Expense","expense","https://expense.zoho.com","حوّل الإيصالات إلى تقارير نفقات"],
+    ["Checkout","checkout","https://checkout.zoho.com","تلقّ الدفعات عبر الإنترنت"],
+    ["Payroll","payroll","https://payroll.zoho.com","احتسب جداول رواتب الموظفين"]
+  ]},
+  { cat:"العمليات", sub:"الاشتراكات والمخزون", apps:[
+    ["Subscriptions","subscriptions","https://subscriptions.zoho.com","قم بإدارة عمليات الفوترة المتكررة"],
+    ["Inventory","inventory","https://inventory.zoho.com","أدر نظاماً مركزياً لإدارة المخزون"]
+  ]},
+  { cat:"الموارد البشرية", sub:"الموظفون والتوظيف", apps:[
+    ["People","people","https://people.zoho.com","أدر الموظفين والإجازات والموافقات"],
+    ["Recruit","recruit","https://recruit.zoho.com","قم بتوظيف مواهب ممتازة"]
+  ]},
+  { cat:"إجراءات العمل", sub:"البناء والتكامل والتحليلات", apps:[
+    ["Creator","creator","https://creator.zoho.com","حوّل عمليات الشركة إلى تطبيقات"],
+    ["Analytics","analytics","https://analytics.zoho.com","احصل على معلومات معمّقة عن عملك"],
+    ["Flow","flow","https://flow.zoho.com","أنشئ عمليات تكامل بين التطبيقات"],
+    ["DataPrep","dataprep","https://dataprep.zoho.com","نظّف وحضّر البيانات للتحليل"]
+  ]},
+  { cat:"الشؤون القانونية", sub:"إدارة العقود", apps:[
+    ["Contracts","contracts","https://contracts.zoho.com","أدر دورة حياة العقود القانونية"]
+  ]}
+];
+
+const LOGO = s => "https://www.zohowebstatic.com/sites/zweb/images/productlogos/" + s + ".svg";
+const slugId = s => "cat-" + s.replace(/\s+/g,"-");
+
+const nav = document.getElementById("nav");
+const main = document.getElementById("main");
+
+DATA.forEach(group => {
+  const a = document.createElement("a");
+  a.href = "#" + slugId(group.cat);
+  a.textContent = group.cat;
+  nav.appendChild(a);
+
+  const sec = document.createElement("section");
+  sec.id = slugId(group.cat);
+  const h2 = document.createElement("h2");
+  h2.textContent = group.cat;
+  const sub = document.createElement("p");
+  sub.className = "sub";
+  sub.textContent = group.sub;
+  const grid = document.createElement("div");
+  grid.className = "grid";
+
+  group.apps.forEach(([name, slug, url, desc]) => {
+    const card = document.createElement("a");
+    card.className = "app";
+    card.href = url;
+    card.target = "_blank";
+    card.rel = "noopener";
+
+    const logo = document.createElement("div");
+    logo.className = "logo";
+    const img = document.createElement("img");
+    img.src = LOGO(slug);
+    img.alt = "Zoho " + name;
+    img.loading = "lazy";
+    img.addEventListener("error", () => card.classList.add("noimg"));
+    const fb = document.createElement("span");
+    fb.className = "fallback";
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.textContent = name.charAt(0);
+    fb.appendChild(dot);
+    fb.appendChild(document.createTextNode(name));
+    logo.appendChild(img);
+    logo.appendChild(fb);
+
+    const p = document.createElement("p");
+    p.className = "desc";
+    p.textContent = desc;
+
+    card.appendChild(logo);
+    card.appendChild(p);
+    grid.appendChild(card);
+  });
+
+  sec.appendChild(h2);
+  sec.appendChild(sub);
+  sec.appendChild(grid);
+  main.appendChild(sec);
+});
+</script>
+</body>
+</html>
